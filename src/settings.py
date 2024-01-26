@@ -13,37 +13,48 @@ from dataset_tools.templates import (
 ##################################
 # * Before uploading to instance #
 ##################################
-PROJECT_NAME: str = None
-PROJECT_NAME_FULL: str = None
+PROJECT_NAME: str = "OFFSED"
+PROJECT_NAME_FULL: str = "OFFSED: Off-Road Semantic Segmentation Dataset"
 HIDE_DATASET = True  # set False when 100% sure about repo quality
 
 ##################################
 # * After uploading to instance ##
 ##################################
-LICENSE: License = None
-APPLICATIONS: List[Union[Industry, Domain, Research]] = None
-CATEGORY: Category = None
+LICENSE: License = License.Apache_2_0(
+    source_url="https://github.com/kasiv008/OFFSEG/blob/main/LICENSE.md"
+)
+APPLICATIONS: List[Union[Industry, Domain, Research]] = [Industry.Automotive()]
+CATEGORY: Category = Category.SelfDriving()
 
-CV_TASKS: List[CVTask] = None
-ANNOTATION_TYPES: List[AnnotationType] = None
+CV_TASKS: List[CVTask] = [
+    CVTask.InstanceSegmentation(),
+    CVTask.SemanticSegmentation(),
+    CVTask.ObjectDetection(),
+    CVTask.Identification(),
+]
+ANNOTATION_TYPES: List[AnnotationType] = [AnnotationType.InstanceSegmentation()]
 
 RELEASE_DATE: Optional[str] = None  # e.g. "YYYY-MM-DD"
 if RELEASE_DATE is None:
-    RELEASE_YEAR: int = None
+    RELEASE_YEAR: int = "2021"
 
-HOMEPAGE_URL: str = None
+HOMEPAGE_URL: str = "https://www.dfki.uni-kl.de/~neigel/offsed.html"
 # e.g. "https://some.com/dataset/homepage"
 
-PREVIEW_IMAGE_ID: int = None
+PREVIEW_IMAGE_ID: int = 13167528
 # This should be filled AFTER uploading images to instance, just ID of any image.
 
-GITHUB_URL: str = None
+GITHUB_URL: str = "https://github.com/dataset-ninja/offsed"
 # URL to GitHub repo on dataset ninja (e.g. "https://github.com/dataset-ninja/some-dataset")
 
 ##################################
 ### * Optional after uploading ###
 ##################################
-DOWNLOAD_ORIGINAL_URL: Optional[Union[str, dict]] = None
+DOWNLOAD_ORIGINAL_URL: Optional[Union[str, dict]] = {
+    "Left images": "https://www.dfki.uni-kl.de/~neigel/datasets/OPEDD_OFFSED/left.zip",
+    "Right images": "https://www.dfki.uni-kl.de/~neigel/datasets/OPEDD_OFFSED/right.zip",
+    "OFFSED devkit & annotations": "https://www.dfki.uni-kl.de/~neigel/datasets/OPEDD_OFFSED/devkit_offsed.zip",
+}
 # Optional link for downloading original dataset (e.g. "https://some.com/dataset/download")
 
 CLASS2COLOR: Optional[Dict[str, List[str]]] = None
@@ -51,16 +62,25 @@ CLASS2COLOR: Optional[Dict[str, List[str]]] = None
 
 # If you have more than the one paper, put the most relatable link as the first element of the list
 # Use dict key to specify name for a button
-PAPER: Optional[Union[str, List[str], Dict[str, str]]] = None
+PAPER: Optional[Union[str, List[str], Dict[str, str]]] = {
+    "Paper": "https://www.dfki.de/fileadmin/user_upload/import/11376_OFFSEDD_VISAPP2021.pdf",
+    "Publication": "https://av.dfki.de/publications/offsed-off-road-semantic-segmentation-dataset/",
+}
 BLOGPOST: Optional[Union[str, List[str], Dict[str, str]]] = None
-REPOSITORY: Optional[Union[str, List[str], Dict[str, str]]] = {"GitHub":"some_link_to_repo_if_exists"}
+REPOSITORY: Optional[Union[str, List[str], Dict[str, str]]] = {
+    "GitHub": "https://github.com/kasiv008/OFFSEG"
+}
 
 CITATION_URL: Optional[str] = None
-AUTHORS: Optional[List[str]] = None
-AUTHORS_CONTACTS: Optional[List[str]] = None
+AUTHORS: Optional[List[str]] = ["Peter Neigel", "Jason Raphael Rambach", "Didier Stricker"]
+AUTHORS_CONTACTS: Optional[List[str]] = [
+    "Peter.Neigel@dfki.de",
+    "jason_raphael.rambach@dfki.de",
+    "didier.stricker@dfki.de",
+]
 
-ORGANIZATION_NAME: Optional[Union[str, List[str]]] = None
-ORGANIZATION_URL: Optional[Union[str, List[str]]] = None
+ORGANIZATION_NAME: Optional[Union[str, List[str]]] = "University of Kaiserslautern, Germany"
+ORGANIZATION_URL: Optional[Union[str, List[str]]] = "https://av.dfki.de/"
 
 # Set '__PRETEXT__' or '__POSTTEXT__' as a key with string value to add custom text. e.g. SLYTAGSPLIT = {'__POSTTEXT__':'some text}
 SLYTAGSPLIT: Optional[Dict[str, Union[List[str], str]]] = None
