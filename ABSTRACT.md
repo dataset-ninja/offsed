@@ -1,5 +1,9 @@
 The authors introduce the **OFFSED: Off-Road Semantic Segmentation Dataset**, comprising 1020 images with 203 corresponding full-image semantic segmentation masks. These masks categorically assign one of 19 classes to each pixel. The selection of images was done in a way that captures the whole range of environments and human poses. In addition to pixel labels, a few selected countable classes also come with instance identifiers. This allows for the use of the dataset in instance and panoptic segmentation tasks.
 
+Note, similar **OFFSED: Off-Road Semantic Segmentation Dataset** dataset is also available on the [DatasetNinja.com](https://datasetninja.com/):
+
+- [OFFSED: Off-Road Semantic Segmentation Dataset](https://datasetninja.com/offsed)
+
 ## Motivation
 
 In the past decade, significant strides in neural network technology have led to notable advancements in automated driver assistance systems. The ability of self-driving vehicles to navigate their surroundings reliably and autonomously relies on their capacity to infer semantic information about the environment. While a considerable portion of research focuses on private passenger cars and cargo trucks, which typically operate in common environments like paved roads, highways, and cities, it's crucial to address the unique challenges faced by industrial vehicles such as tractors and excavators. These industrial vehicles constitute a substantial portion of the global motorized vehicle fleet and operate in distinctly different settings.
