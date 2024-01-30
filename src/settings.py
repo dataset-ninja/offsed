@@ -40,7 +40,7 @@ if RELEASE_DATE is None:
 HOMEPAGE_URL: str = "https://www.dfki.uni-kl.de/~neigel/offsed.html"
 # e.g. "https://some.com/dataset/homepage"
 
-PREVIEW_IMAGE_ID: int = 13167528
+PREVIEW_IMAGE_ID: int = 13191346
 # This should be filled AFTER uploading images to instance, just ID of any image.
 
 GITHUB_URL: str = "https://github.com/dataset-ninja/offsed"
