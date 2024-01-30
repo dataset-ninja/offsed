@@ -5,7 +5,6 @@ from urllib.parse import unquote, urlparse
 import numpy as np
 import supervisely as sly
 from cv2 import connectedComponents
-from dataset_tools.convert import unpack_if_archive
 from supervisely.io.fs import (
     file_exists,
     get_file_ext,
@@ -15,6 +14,7 @@ from supervisely.io.fs import (
 from tqdm import tqdm
 
 import src.settings as s
+from dataset_tools.convert import unpack_if_archive
 
 
 def download_dataset(teamfiles_dir: str) -> str:
@@ -82,6 +82,7 @@ def convert_and_upload_supervisely_project(
 ) -> sly.ProjectInfo:
     ### Function should read local dataset and upload it to Supervisely project, then return project info.###
     images_path = "/home/alex/DATASETS/TODO/OPEDD/left"
+    r_images_path = "/home/alex/DATASETS/TODO/OPEDD/right"
     anns_path = "/home/alex/DATASETS/TODO/OPEDD/devkit_offsed/SegmentationClass"
     batch_size = 30
     images_ext = ".png"
@@ -179,10 +180,10 @@ def convert_and_upload_supervisely_project(
         color_to_class[curr_class.color] = curr_class
     api.project.update_meta(project.id, meta.to_json())
 
-    dataset = api.dataset.create(project.id, ds_name, change_name_if_conflict=True)
+    dataset = api.dataset.create(project.id, "left", change_name_if_conflict=True)
 
     images_names = [
-        im_name for im_name in os.listdir(images_path) if get_file_ext(im_name) == images_ext
+        im_name for im_name in os.listdir(anns_path) if get_file_ext(im_name) == images_ext
     ]
 
     progress = sly.Progress("Add data to {} dataset".format(ds_name), len(images_names))
@@ -197,6 +198,19 @@ def convert_and_upload_supervisely_project(
 
         anns_batch = [create_ann(image_path) for image_path in images_pathes_batch]
         api.annotation.upload_anns(img_ids, anns_batch)
+
+        progress.iters_done_report(len(img_names_batch))
+
+    dataset = api.dataset.create(project.id, "right", change_name_if_conflict=True)
+
+    progress = sly.Progress("Add data to right dataset", len(images_names))
+
+    for img_names_batch in sly.batched(images_names, batch_size=batch_size):
+        images_pathes_batch = [
+            os.path.join(r_images_path, image_name) for image_name in img_names_batch
+        ]
+
+        img_infos = api.image.upload_paths(dataset.id, img_names_batch, images_pathes_batch)
 
         progress.iters_done_report(len(img_names_batch))
 
